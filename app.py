@@ -64,6 +64,10 @@ def generate_puzzle():
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=prompt,
+            config={
+                "temperature": 0.7,
+                "top_p": 0.9
+            }
         )
         
         # Clean output to ensure pure JSON
@@ -142,6 +146,10 @@ def get_hint():
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=prompt,
+            config={
+                "temperature": 0.7,
+                "top_p": 0.9
+            }
         )
         return jsonify({"success": True, "hint": response.text.strip(), "hint_number": hint_count})
     except Exception as e:
@@ -185,6 +193,10 @@ def submit_answer():
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=grading_prompt,
+            config={
+                "temperature": 0.7,
+                "top_p": 0.9
+            }
         )
         
         out = response.text.strip()
