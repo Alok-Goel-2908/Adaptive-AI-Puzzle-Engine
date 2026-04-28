@@ -182,10 +182,21 @@ select.glassmorphism {
 .primary-btn:active { transform: translateY(0); }
 
 .secondary-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.5);
     border: 1px solid var(--border);
+    color: var(--text-color);
 }
-.secondary-btn:hover { background: rgba(255, 255, 255, 0.1); }
+.secondary-btn:hover { background: rgba(255, 255, 255, 0.8); }
+
+.warning-btn {
+    background: #f59e0b;
+    color: white;
+    border: none;
+}
+.warning-btn:hover {
+    background: #d97706;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
 
 .mt-3 { margin-top: 1rem; }
 
