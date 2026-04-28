@@ -16,95 +16,150 @@
     <div class="container">
         
         <header class="app-header">
-            <h1><i class="ph ph-brain"></i> Adaptive AI Puzzle Engine</h1>
+            <h1><i class="ph ph-brain"></i> AI Puzzle Engine</h1>
             <p>Intelligence adapting to your logic in real-time.</p>
         </header>
 
         <main class="app-main">
-            <!-- Left Column: Controls & Puzzle Display -->
-            <section class="puzzle-section">
-                
-                <!-- Dashboard Card -->
-                <div class="card controls-card glassmorphism dashboard-card">
-                    <h2><i class="ph-bold ph-chart-line-up"></i> Performance Dashboard</h2>
+            <!-- Left Column: Sidebar Control Panel (30%) -->
+            <aside class="sidebar-section">
+                <!-- Generator Card -->
+                <div class="card glassmorphism">
+                    <h2><i class="ph-bold ph-sparkle"></i> Puzzle Generator</h2>
+                    <div style="display: flex; gap: 0.75rem; flex-direction: column;">
+                        <select id="category-select" class="glassmorphism">
+                            <option value="Random">Random Category</option>
+                            <option value="Logic Grid">Logic Grid</option>
+                            <option value="Number Pattern">Number Pattern</option>
+                            <option value="Riddles">Riddles</option>
+                            <option value="Lateral Thinking">Lateral Thinking</option>
+                            <option value="Math & Algebra">Math & Algebra</option>
+                            <option value="Word Games">Word Games</option>
+                            <option value="Cryptic Clues">Cryptic Clues</option>
+                            <option value="Situational Logic">Situational Logic</option>
+                            <option value="Sudoku-style">Sudoku-style</option>
+                        </select>
+
+                        <select id="difficulty-select" class="glassmorphism">
+                            <option value="Adaptive">Adaptive (AI Recommended)</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                        
+                        <button id="generate-btn" class="primary-btn">
+                            Generate New Puzzle
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <!-- Stats Card -->
+                <div class="card glassmorphism">
+                    <h2><i class="ph-bold ph-chart-line-up"></i> Performance Stats</h2>
                     <div class="dashboard-stats">
                         <div class="stat-box">
-                            <span class="stat-label">Logic Score</span>
+                            <span class="stat-label">Score</span>
                             <span class="stat-value" id="dash-score">0</span>
                         </div>
                         <div class="stat-box">
-                            <span class="stat-label">Puzzles Solved</span>
+                            <span class="stat-label">Solved</span>
                             <span class="stat-value" id="dash-solved">0</span>
                         </div>
                         <div class="stat-box">
-                            <span class="stat-label">Current Level</span>
-                            <span class="stat-value" id="dash-diff">Easy</span>
+                            <span class="stat-label">Level</span>
+                            <span class="stat-value" id="dash-diff" style="font-size: 1rem;">Easy</span>
                         </div>
+
                     </div>
-                    
-                    <button id="generate-btn" class="primary-btn mt-3">
-                        <i class="ph ph-sparkle"></i> Generate Target Puzzle
-                    </button>
-                    <!-- Error or loading message -->
-                    <div id="status-msg" class="status-msg"></div>
                 </div>
 
-                <!-- Display Card -->
+
+
+                <!-- Status Message -->
+                <div id="status-msg" class="status-msg"></div>
+            </aside>
+
+            <!-- Right Column: Main Interactive Area (70%) -->
+            <section class="content-section">
+                <!-- Large Puzzle Display Section -->
                 <div class="card display-card glassmorphism">
                     <div class="card-header">
-                        <h2>Current Puzzle</h2>
-                        <span id="badge-difficulty" class="badge">Adaptive</span>
+                        <h2><i class="ph-bold ph-puzzle-piece"></i> Active Puzzle</h2>
+                        <span id="badge-difficulty" class="badge">Adaptive Difficulty</span>
                     </div>
                     
                     <div id="puzzle-content" class="puzzle-content">
                         <div class="empty-state">
                             <i class="ph ph-puzzle-piece"></i>
-                            <p>Generate your first puzzle to start training!</p>
+                            <p>Select a category and generate a puzzle to begin your training session.</p>
                         </div>
                     </div>
-                    
-                    <!-- Answer Submission Area -->
-                    <div id="answer-area" class="answer-area hidden">
-                        <h3>Submit Your Final Answer</h3>
-                        <div class="chat-input-area" style="margin-top: 0.5rem;">
-                            <input type="text" id="answer-input" placeholder="Type your final solution guess here...">
-                            <button id="submit-answer-btn" class="icon-btn bg-success"><i class="ph-bold ph-check"></i></button>
+                </div>
+
+                <!-- Answer & Feedback Section -->
+                <div id="answer-area" class="card glassmorphism hidden">
+                    <div class="answer-area" style="margin-top: 0; border-top: none; padding-top: 0;">
+                        <h3>Submit Your Answer</h3>
+                        <div class="chat-input-area">
+                            <input type="text" id="answer-input" placeholder="Enter your solution here...">
+                            <button id="submit-answer-btn" class="icon-btn" style="background: var(--success);"><i class="ph-bold ph-check"></i></button>
                         </div>
                         <div id="grading-feedback" class="grading-feedback"></div>
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- Right Column: Hint Bot -->
-            <section class="chat-section">
-                <div class="card chat-card glassmorphism">
-                    <div class="chat-header">
-                        <i class="ph-fill ph-robot"></i>
-                        <div>
-                            <h2>HintBot AI</h2>
-                            <p class="status">Online & Ready</p>
+                        
+                        <!-- Explain My Mistake Section -->
+                        <div id="explain-area" class="hidden" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--border);">
+                            <button id="explain-mistake-btn" class="primary-btn secondary-btn" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                                <i class="ph ph-info"></i> Why Am I Wrong?
+                            </button>
+                            <div id="explain-feedback" style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-color); line-height: 1.6;"></div>
                         </div>
                     </div>
-                    
-                    <div id="chat-messages" class="chat-messages">
-                        <div class="msg system-msg">
-                            Waiting for a puzzle to be generated...
-                        </div>
-                    </div>
-
-                    <div class="chat-input-area">
-                        <input type="text" id="chat-input" placeholder="Ask for a hint..." disabled>
-                        <button id="send-btn" class="icon-btn" disabled><i class="ph-bold ph-paper-plane-right"></i></button>
-                    </div>
-                    <div class="hint-counter">
-                        <small id="hint-counter-text">Hints used: 0</small>
-                    </div>
                 </div>
+
             </section>
         </main>
     </div>
+
+    <!-- Floating AI Chat Widget -->
+    <div id="chat-widget" class="chat-widget">
+        <button id="chat-toggle" class="chat-toggle-btn">
+            <i class="ph-fill ph-chat-circle-dots"></i>
+            <span class="chat-badge hidden">!</span>
+        </button>
+
+        <div id="chat-container" class="chat-window glassmorphism hidden">
+            <div class="chat-header">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="ph-fill ph-robot"></i>
+                    <div>
+                        <h2>HintBot AI</h2>
+                        <p class="status">System Active</p>
+                    </div>
+                </div>
+                <button id="close-chat" class="close-btn"><i class="ph ph-x"></i></button>
+            </div>
+            
+            <div id="chat-messages" class="chat-messages">
+                <div class="msg system-msg">
+                    HintBot is ready to help. Generate a puzzle to start our conversation.
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Ask for a hint..." disabled>
+                <button id="send-btn" class="icon-btn" disabled><i class="ph-bold ph-paper-plane-right"></i></button>
+            </div>
+            <div class="hint-counter">
+                <small id="hint-counter-text">Hints used: 0</small>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000;"></div>
 
     <!-- Local JS -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
